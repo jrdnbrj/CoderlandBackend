@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MarcasAutosModule } from './marcas-autos/marcas-autos.module';
 
 @Module({
@@ -45,7 +43,5 @@ import { MarcasAutosModule } from './marcas-autos/marcas-autos.module';
 
     MarcasAutosModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
