@@ -1,98 +1,169 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 **Prueba Técnica – Backend (NestJS + TypeORM + PostgreSQL + Docker + Testing)**
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+El desarrollo incluye:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Conexión a base de datos PostgreSQL  
+- Migraciones y seed con TypeORM  
+- API REST con un endpoint GET  
+- Pruebas unitarias (con mocks y base de datos en memoria)  
+- Docker Compose con dos servicios: API + PostgreSQL  
+- Estructura modular y buenas prácticas  
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# 📦 **Tecnologías utilizadas**
 
-## Project setup
+| Componente | Tecnología |
+|-----------|------------|
+| Backend | **NestJS 11** |
+| ORM | **TypeORM 0.3** |
+| Base de datos | **PostgreSQL** |
+| Testing | **Jest** (unit tests + SQLite in-memory) |
+| Docker | Dockerfile multi-stage + Docker Compose |
+| Validación | class-validator / class-transformer |
+| Lenguaje | Typescript |
+| Migraciones | TypeORM CLI |
 
-```bash
-$ npm install
+---
+
+# 📁 **Estructura principal del proyecto**
+
+```
+src/
+  app.module.ts
+  main.ts
+
+  marcas-autos/
+    dto/
+      marca-auto.dto.ts
+    entities/
+      marca-auto.entity.ts
+    marcas-autos.controller.ts
+    marcas-autos.controller.spec.ts
+    marcas-autos.memory.spec.ts
+    marcas-autos.module.ts
+    marcas-autos.service.ts
+    marcas-autos.service.spec.ts
+
+  migrations/
+    1763404849013-InitMarcasAutos.ts
+    1763404899310-SeedMarcasAutos.ts
+
+typeorm.config.ts
+docker-compose.yml
+Dockerfile
+.env.example
 ```
 
-## Compile and run the project
+---
+
+# 🛠️ **Requisitos previos**
+
+- Node.js v18+  
+- Docker y Docker Compose  
+- Git Bash (si estás en Windows)
+
+---
+
+# 🔧 **Configuración del entorno (.env)**
+
+Antes de ejecutar el proyecto **fuera de Docker**, copia:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cp .env.example .env
 ```
 
-## Run tests
+El `.env` se usa solo en ejecución local.  
+Docker Compose **NO** usa tu `.env`: define sus propias variables internas.
+
+---
+
+# ▶️ **Ejecución del proyecto (modo desarrollo local)**
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
+npm run start:dev
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+# 🗄️ **Migraciones (local)**
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run migration:run
+npm run migration:revert
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+# 🐳 **Ejecución con Docker Compose**
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🔥 Levantar los servicios
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+docker compose up --build -d
+```
 
-## Support
+## 🧱 Ejecutar migraciones dentro del contenedor
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+docker compose exec api npm run migration:run
+```
 
-## Stay in touch
+## 📌 Probar API
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+curl http://localhost:3000/marcas-autos
+```
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# 🧪 **Testing**
+
+```bash
+npm run test
+npm run test:cov
+```
+
+Incluye:
+
+- Tests con mocks  
+- Tests con SQLite in-memory  
+- Cobertura > 70 % en el módulo de negocio  
+
+---
+
+# 📘 **Requisitos de la prueba — Cumplimiento**
+
+| Requisito | Estado |
+|----------|--------|
+| Conexión PostgreSQL | ✔️ |
+| Migración + Seed | ✔️ |
+| API REST GET | ✔️ |
+| Pruebas unitarias + DB en memoria | ✔️ |
+| Cobertura ≥ 70% | ✔️ |
+| Docker Compose con DB + API | ✔️ |
+
+---
+
+# 🚀 **Endpoint principal**
+
+```
+GET /marcas-autos
+```
+
+---
+
+# 📄 **Scripts útiles**
+
+| Acción | Comando |
+|-------|---------|
+| Iniciar Nest local | `npm run start:dev` |
+| Ejecutar tests | `npm run test` |
+| Ver cobertura | `npm run test:cov` |
+| Ejecutar migraciones | `npm run migration:run` |
+| Docker: levantar servicios | `docker compose up --build -d` |
+| Docker: ejecutar migraciones | `docker compose exec api npm run migration:run` |
+
+---
+
